@@ -1,0 +1,23 @@
+#Env configs
+TEST_BROWSER=chrome
+
+#For demo web, go to ctflearn.com to create credential
+#USERNAME=
+#PASSWORD=
+
+#For android demo enter your own device info
+#Calculator on difference devices have difference locators,
+#so make sure to get right locator for your demo. 
+#Make sure you have appium server successfully installed and started
+#DEVICE_NAME=
+#APP_PACKAGE=
+#APP_ACTIVITY=
+
+
+#Linagora env keys
+TMAIL_HOST=https://tmail.linagora.com
+TMAIL_USERNAME=
+TMAIL_PASSWORD=
+
+#default explicit time to wait, 10 seconds
+EXPLICIT_WAIT=10000

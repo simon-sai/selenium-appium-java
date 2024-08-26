@@ -1,0 +1,10 @@
+/bin/
+/logs/
+/target/
+/.idea/
+/.allure/
+/allure-report/
+/.log
+/amplify-health.iml
+/src/test/resources/env-configs.properties
+.vscode
