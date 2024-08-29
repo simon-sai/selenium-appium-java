@@ -9,6 +9,7 @@ public class CommonAndroidSteps {
 
     public CommonAndroidSteps() {
         this.commonAndroid = new CommonAndroid();
+        this.commonAndroid.initDriver();
     }
 
     @When("I open android app from env")
