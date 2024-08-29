@@ -8,6 +8,7 @@ import java.net.URL;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import core.Report;
 import core.utilities.Config;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.options.BaseOptions;
@@ -53,6 +54,8 @@ public class DriverManager {
     }
 
     public static AndroidDriver newAndroidDriver(String automationName, String deviceName, String app) {
+        Report.println(String.format("-- newAndroidDriver: %s", automationName));
+
         currentDriverName = androidName;
         URI uri;
         URL url;

@@ -1,4 +1,4 @@
-@demo @android @demoAndroid @wip
+@demo @android @demoAndroid
 Feature: Demo with Flutter Intergration
 
   Background:
