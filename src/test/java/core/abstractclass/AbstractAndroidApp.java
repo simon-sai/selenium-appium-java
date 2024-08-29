@@ -5,32 +5,34 @@ import org.openqa.selenium.By;
 import core.driver.DriverManager;
 import io.appium.java_client.android.AndroidDriver;
 
-public abstract class AbstractAndroid extends AbstractWebDriverIO {
+public abstract class AbstractAndroidApp extends AbstractWebDriverIO {
     protected AndroidDriver androidDriver;
-
-    public AbstractAndroid() {
-        super();
-
-        this.androidDriver = DriverManager.getAndroidDriver();
-        if (this.androidDriver == null) {
-            throw new IllegalStateException("Android driver is NULL");
-        }
-    }
 
     protected abstract String appPackage();
 
     protected abstract String mainActivity();
 
+    public void initDriver() {
+        DriverManager.newAndroidDriver();
+    }
+
     protected String getApkLocation() {
-        throw new IllegalStateException("APK location not set");
+        throw new IllegalStateException("Sub class not override APK location set");
+    }
+
+    public AndroidDriver getAndroiDriver() {
+        if (this.androidDriver == null) {
+            this.androidDriver = DriverManager.getAndroidDriver();
+        }
+        return this.androidDriver;
     }
 
     public void open() {
-        this.androidDriver.activateApp(this.appPackage());
+        this.getAndroiDriver().activateApp(this.appPackage());
     }
 
     public void close() {
-        this.androidDriver.terminateApp(this.appPackage());
+        this.getAndroiDriver().terminateApp(this.appPackage());
     }
 
     public void install() {
@@ -39,7 +41,7 @@ public abstract class AbstractAndroid extends AbstractWebDriverIO {
     }
 
     public void install(String appPath) {
-        this.androidDriver.installApp(appPath);
+        this.getAndroiDriver().installApp(appPath);
     }
 
     protected By byText(String buttonText) {

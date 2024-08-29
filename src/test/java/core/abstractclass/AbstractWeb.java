@@ -12,22 +12,22 @@ public abstract class AbstractWeb extends AbstractWebDriverIO {
     }
 
     public void navigateToTheUrl(String url) {
-        DriverManager.getWebDriverIO().navigate().to(url);
+        DriverManager.getCurrentDriver().navigate().to(url);
     }
 
     public String getCurrentUrl() {
-        return this.driver.getCurrentUrl();
+        return DriverManager.getCurrentDriver().getCurrentUrl();
     }
 
     public void actionClick(WebElement target) {
         this.sleep(500);
-        Actions action = new Actions(this.driver);
+        Actions action = new Actions(DriverManager.getCurrentDriver());
         action.click(target).build().perform();
     }
 
     public void actionSendKeys(WebElement target, String text) {
         this.sleep(500);
-        Actions action = new Actions(this.driver);
+        Actions action = new Actions(DriverManager.getCurrentDriver());
         action.sendKeys(target, text).build().perform();
     }
 }

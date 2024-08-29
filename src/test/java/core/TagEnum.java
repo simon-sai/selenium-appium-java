@@ -2,6 +2,7 @@ package core;
 
 public enum TagEnum {
     ANDROID("@android"),
+    FLUTTER("@flutter"),
     WEB("@web"),
     API("@api");
 

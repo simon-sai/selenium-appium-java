@@ -2,15 +2,11 @@ package pages.demo;
 
 import org.openqa.selenium.By;
 
-import core.abstractclass.AbstractAndroid;
+import core.abstractclass.AbstractFlutter;
 
-public class DemoFlutterApp extends AbstractAndroid {
+public class DemoFlutterApp extends AbstractFlutter {
 
     protected By plusXpath = By.xpath("//android.widget.Button[@content-desc=\"Plus\"]");
-
-    public DemoFlutterApp() {
-        super();
-    }
 
     @Override
     protected String appPackage() {

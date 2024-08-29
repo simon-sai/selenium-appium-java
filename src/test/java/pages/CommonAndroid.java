@@ -1,9 +1,9 @@
 package pages;
 
-import core.abstractclass.AbstractAndroid;
+import core.abstractclass.AbstractAndroidApp;
 import core.utilities.Config;
 
-public class CommonAndroid extends AbstractAndroid {
+public class CommonAndroid extends AbstractAndroidApp {
     public CommonAndroid() {
         super();
     }

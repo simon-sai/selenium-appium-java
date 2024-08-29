@@ -1,8 +1,8 @@
 package pages.linagora.tmail.mobile;
 
-import core.abstractclass.AbstractAndroid;
+import core.abstractclass.AbstractAndroidApp;
 
-public class TmailApp extends AbstractAndroid {
+public class TmailApp extends AbstractAndroidApp {
 
     @Override
     protected String appPackage() {

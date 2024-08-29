@@ -4,6 +4,7 @@ Feature: Demo with Flutter Intergration
   Background:
     Given Demo Flutter has intergration installed
 
-  Scenario: Open flutter app in device
-    When I open app Demo Flutter has intergration
-    And I wait 5 seconds
+  Scenario: Open Demo Flutter app
+    When I open Demo Flutter app has intergration
+    And I wait 2 seconds
+    And I close Demo Flutter app

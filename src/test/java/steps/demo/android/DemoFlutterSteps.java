@@ -10,18 +10,26 @@ public class DemoFlutterSteps {
 
     public DemoFlutterSteps() {
         this.demoFlutterApp = new DemoFlutterApp();
+        this.demoFlutterApp.initDriver();
     }
 
     @Given("Demo Flutter has intergration installed")
     public void Flutter_calculator_installed() {
         this.demoFlutterApp.report("Demo Flutter has intergration installed");
+
+        // Actually flutter app already installed when initDriver
         this.demoFlutterApp.install();
-        // this.demoFlutterApp.install("src/test/resources/apk/flutter-intergration-demo.apk");
     }
 
-    @When("I open app Demo Flutter has intergration")
-    public void I_open_app_Demo_Flutter_has_intergration() {
-        this.demoFlutterApp.report("I open flutter calculator");
+    @When("I open Demo Flutter app has intergration")
+    public void I_open_Demo_Flutter_app_has_intergration() {
+        this.demoFlutterApp.report("I open Demo Flutter app has intergration");
         this.demoFlutterApp.open();
+    }
+
+    @When("I close Demo Flutter app")
+    public void I_close_Demo_Flutter_app() {
+        this.demoFlutterApp.report("I close Demo Flutter app");
+        this.demoFlutterApp.close();
     }
 }

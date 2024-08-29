@@ -1,1 +1,3 @@
-tmail-app.apk
+*
+!flutter-intergration-demo.apk
+!simplistic-calculator.apk

@@ -18,28 +18,23 @@ import core.verify.ElementAssert;
 
 public abstract class AbstractWebDriverIO extends AbstractBase {
     protected WebDriverWait explicitWait;
-    protected WebDriver driver;
     protected ElementAssert elementAssert;
 
     public AbstractWebDriverIO() {
         super();
-        this.driver = DriverManager.getWebDriverIO();
-        if (this.driver == null) {
-            throw new IllegalStateException("Web driver is NULL");
-        }
-
         this.elementAssert = new ElementAssert();
-        int millisecond = Config.getEnvInt("EXPLICIT_WAIT");
-        this.explicitWait = this.newWait(this.driver, millisecond);
     }
 
     public ElementAssert ElementAssert() {
         return this.elementAssert;
     }
 
-    public final WebDriverWait newWait(WebDriver driver, int millisecond) {
-        Duration timeOut = Duration.ofMillis(millisecond);
-        return new WebDriverWait(driver, timeOut);
+    public final WebDriverWait getWait(WebDriver driver, int millisecond) {
+        if (explicitWait == null) {
+            Duration timeOut = Duration.ofMillis(millisecond);
+            explicitWait = new WebDriverWait(driver, timeOut);
+        }
+        return explicitWait;
     }
 
     public By byDynamic(String tagName, String attribute, String value) {
@@ -57,7 +52,7 @@ public abstract class AbstractWebDriverIO extends AbstractBase {
     }
 
     public WebElement findElement(By elementBy, int millisecond) {
-        return this.findElement(this.newWait(this.driver, millisecond), elementBy);
+        return this.findElement(this.getWait(DriverManager.getCurrentDriver(), millisecond), elementBy);
     }
 
     public WebElement findElement(WebDriverWait explicDriverWait, By elementBy) {

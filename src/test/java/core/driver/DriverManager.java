@@ -10,86 +10,64 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import core.utilities.Config;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.options.UiAutomator2Options;
+import io.appium.java_client.remote.options.BaseOptions;
 
 /*
  * TODO: How to manage cross-platform and multi devices scenarios?
  */
 public class DriverManager {
-    protected static WebDriver driver;
+    protected static WebDriver currentDriver;
     protected static WebDriver chromeDriver;
     protected static AndroidDriver androidDriver;
 
-    public static String currentDriver = "";
+    public static String currentDriverName = "";
     public static String chromeName = "chrome";
     public static String androidName = "android";
+    public static String flutterName = "flutter";
+    public static String uiAutomatorName = "UiAutomator2";
+    public static String flutterIntergrationName = "FlutterIntegration";
 
-    public static WebDriver getDriver() {
-        if (driver == null) {
-            driver = getDriver(currentDriver);
-        }
-
-        return driver;
+    public static WebDriver getCurrentDriver() {
+        return currentDriver;
     }
 
-    public static WebDriver getWebDriverIO() {
-        if (driver == null) {
-            driver = getDriver(chromeName);
-        }
-
-        return driver;
-    }
-
-    public static WebDriver getDriver(String driverName) {
-        // core.Report.println("------- getDriver: " + driverName);
-
-        if (currentDriver.equals(driverName)) {
-            return driver;
-        }
-
-        if (driverName.equals(chromeName)) {
-            driver = getChromeDriver();
-        }
-
-        if (driverName.equals(androidName)) {
-            driver = getAndroidDriver();
-        }
-
-        currentDriver = driverName;
-        return driver;
+    public static AndroidDriver getAndroidDriver() {
+        return androidDriver;
     }
 
     public static WebDriver getChromeDriver() {
         if (chromeDriver == null) {
             chromeDriver = new ChromeDriver(OptionsManager.getChromeOptions());
+            currentDriver = chromeDriver;
         }
 
         return chromeDriver;
     }
 
-    public static AndroidDriver getAndroidDriver() {
-        if (androidDriver != null) {
-            return androidDriver;
-        }
+    public static AndroidDriver newFlutterDriver(String app) {
+        return newAndroidDriver(flutterIntergrationName, null, app);
+    }
 
-        currentDriver = androidName;
+    public static AndroidDriver newAndroidDriver() {
+        return newAndroidDriver(uiAutomatorName, null, null);
+    }
+
+    public static AndroidDriver newAndroidDriver(String automationName, String deviceName, String app) {
+        currentDriverName = androidName;
         URI uri;
         URL url;
 
-        String deviceName = Config.getEnvString("DEVICE_NAME");
+        if (deviceName == null) {
+            deviceName = Config.getEnvString("DEVICE_NAME");
+        }
 
-        UiAutomator2Options options = new UiAutomator2Options()
-                .setPlatformName("Android")
-                .setDeviceName(deviceName);
-
-        // FlutterIntegrationTestDriver options = new FlutterIntegrationTestDriver()
-
-        // @SuppressWarnings("rawtypes")
-        // BaseOptions options = new BaseOptions()
-        // .amend("platformName", "Android")
-        // .amend("appium:deviceName", deviceName)
-        // .amend("appium:flutterSystemPort", 9000)
-        // .amend("appium:automationName", "FlutterIntegration");
+        @SuppressWarnings("rawtypes")
+        BaseOptions options = new BaseOptions().amend("appium:automationName", automationName);
+        options.amend("appium:deviceName", deviceName);
+        options.amend("platformName", "Android");
+        if (app != null) {
+            options.amend("appium:app", app);
+        }
 
         try {
             uri = new URI("http://127.0.0.1:4723");
@@ -104,8 +82,7 @@ public class DriverManager {
         }
 
         androidDriver = new AndroidDriver(url, options);
-
-        driver = androidDriver;
+        currentDriver = androidDriver;
         return androidDriver;
     }
 
@@ -120,7 +97,7 @@ public class DriverManager {
             androidDriver = null;
         }
 
-        driver = null;
-        currentDriver = "";
+        currentDriver = null;
+        currentDriverName = "";
     }
 }

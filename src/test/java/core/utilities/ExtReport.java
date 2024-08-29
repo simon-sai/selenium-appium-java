@@ -114,7 +114,7 @@ public class ExtReport {
 	}
 
 	public static void screenshot(Status status) {
-		WebDriver driver = DriverManager.getDriver();
+		WebDriver driver = DriverManager.getCurrentDriver();
 		if (driver == null) {
 			return;
 		}

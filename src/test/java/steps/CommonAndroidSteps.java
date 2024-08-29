@@ -11,8 +11,15 @@ public class CommonAndroidSteps {
         this.commonAndroid = new CommonAndroid();
     }
 
-    @When("I open app from env")
-    public void I_open_app_from_env() {
+    @When("I open android app from env")
+    public void I_open_android_app_from_env() {
+        this.commonAndroid.report("I open android app from env");
         this.commonAndroid.open();
+    }
+
+    @When("I close android app from app")
+    public void I_close_android_app_from_env() {
+        this.commonAndroid.report("I close android app from app");
+        this.commonAndroid.close();
     }
 }
