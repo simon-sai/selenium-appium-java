@@ -73,46 +73,37 @@ public class DriverManager {
         }
 
         currentDriver = androidName;
+        URI uri;
+        URL url;
 
         String deviceName = Config.getEnvString("DEVICE_NAME");
 
         UiAutomator2Options options = new UiAutomator2Options()
                 .setPlatformName("Android")
                 .setDeviceName(deviceName);
-        URI uri;
+
+        // FlutterIntegrationTestDriver options = new FlutterIntegrationTestDriver()
+
+        // @SuppressWarnings("rawtypes")
+        // BaseOptions options = new BaseOptions()
+        // .amend("platformName", "Android")
+        // .amend("appium:deviceName", deviceName)
+        // .amend("appium:flutterSystemPort", 9000)
+        // .amend("appium:automationName", "FlutterIntegration");
+
         try {
             uri = new URI("http://127.0.0.1:4723");
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
-        URL url;
+
         try {
             url = uri.toURL();
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
+
         androidDriver = new AndroidDriver(url, options);
-
-        // DesiredCapabilities caps = new DesiredCapabilities();
-        // caps.setCapability("platformName", "Android");
-        // caps.setCapability("deviceName", "25adaa6b7ce6");
-        // caps.setCapability("appPackage", "com.google.android.calculator");
-        // caps.setCapability("appActivity",
-        // "com.google.android.calculator.MainActivity");
-
-        // URI uri;
-        // try {
-        // uri = new URI("http://0.0.0.0:4723");
-        // } catch (URISyntaxException e) {
-        // throw new RuntimeException(e);
-        // }
-        // URL url;
-        // try {
-        // url = uri.toURL();
-        // } catch (MalformedURLException e) {
-        // throw new RuntimeException(e);
-        // }
-        // androidDriver = new AndroidDriver(url, caps);
 
         driver = androidDriver;
         return androidDriver;

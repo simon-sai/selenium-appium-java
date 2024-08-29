@@ -1,12 +1,13 @@
 package pages.linagora.tmail.mobile;
 
+import org.devicefarm.FlutterBy;
 import org.openqa.selenium.By;
 
 import core.utilities.Config;
 
 public class LoginPage extends TmailApp {
 
-    private final By inputUsername = this.byDynamic("android.widget.TextEdit", "hint", "email");
+    private final By inputUsername = FlutterBy.key("tmail_login_email_field");
     private final By buttonSignIn = this.byDynamic("android.widget.Button", "content-desc", "Next");
 
     // [@hint="Hello world"]

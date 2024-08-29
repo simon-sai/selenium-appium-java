@@ -240,5 +240,11 @@
       <scope>test</scope>
     </dependency>
     
+    <!-- https://mvnrepository.com/artifact/com.github.saikrishna321/flutter -->
+    <dependency>
+        <groupId>com.github.saikrishna321</groupId>
+        <artifactId>flutter</artifactId>
+        <version>1.0</version>
+    </dependency>
   </dependencies>
 </project>

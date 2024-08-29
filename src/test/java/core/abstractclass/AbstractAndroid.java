@@ -21,12 +21,21 @@ public abstract class AbstractAndroid extends AbstractWebDriverIO {
 
     protected abstract String mainActivity();
 
+    protected String getApkLocation() {
+        throw new IllegalStateException("APK location not set");
+    }
+
     public void open() {
         this.androidDriver.activateApp(this.appPackage());
     }
 
     public void close() {
         this.androidDriver.terminateApp(this.appPackage());
+    }
+
+    public void install() {
+        String appPath = this.getApkLocation();
+        this.install(appPath);
     }
 
     public void install(String appPath) {

@@ -18,7 +18,7 @@ public class TmailAndroidSteps {
         Report.log("I has Tmail app already installed");
 
         String rootPath = System.getProperty("user.dir");
-        this.tmailApp.install(rootPath + "/src/test/resources/apk/tmail-240826.apk");
+        this.tmailApp.install(rootPath + "/src/test/resources/apk/tmail-app.apk");
     }
 
     @When("I open Tmail app")

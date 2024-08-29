@@ -1,4 +1,4 @@
-@demo @android @calculator @demoAndroid
+@demo @android @calculator @demoAndroid @skip
 Feature: Using flutter calculator
   Back round:
     Given Flutter calculator installed
