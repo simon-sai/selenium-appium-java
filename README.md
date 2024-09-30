@@ -1,24 +1,18 @@
-## How to run with Maven
+## Getting Started
+- [Installation](https://github.com/simon-sai/selenium-appium-java/wiki/Installation)
+- [Configuration](https://github.com/simon-sai/selenium-appium-java/wiki/Configuration)
+- [Write your first scenario](https://github.com/simon-sai/selenium-appium-java/wiki/Write-your-first-scenario)
 
-- Run all runner: 
-  - `mvn clean test`
+## Concepts
+- [Directory Stucture](https://github.com/simon-sai/selenium-appium-java/wiki/Directory-Stucture)
+- [Cucumber Gherkin](https://github.com/simon-sai/selenium-appium-java/wiki/Cucumber-Gherkin)
+- [Driver Manager](https://github.com/simon-sai/selenium-appium-java/wiki/Driver-Manager)
+- [Page object Model](https://github.com/simon-sai/selenium-appium-java/wiki/Page-object-Model)
+- [Page Generator](https://github.com/simon-sai/selenium-appium-java/wiki/Page-Generator)
 
-- Run with one runner
-  - `mvn clean test -P demoWeb`
-  - `mvn clean test -P demoApi`
-
-- Run test with tag @wip
-  - `mvn clean test -P wip`
-
-## Appium require
-- We need appium node js with available drivers:
-  - uiautomator2@3.7.7 (automationName 'UiAutomator2')
-  - espresso@3.3.1 (automationName 'Espresso')
-
-## How to get current bundle id of app
-- Get all devices connected
-  - `adb devices`
-- Get current active app info
-  - `adb shell dumpsys window windows`
+## Predefined Steps
+- [Common Steps](https://github.com/simon-sai/selenium-appium-java/wiki/All-Common-Steps)
 
 
+## Testing Env - CI/CD
+- (TBD)
