@@ -2,7 +2,7 @@ package steps.demo.android;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
-import pages.demo.CalculatorApp;
+import pages.demo.android.CalculatorApp;
 
 public class CalculatorSteps {
 

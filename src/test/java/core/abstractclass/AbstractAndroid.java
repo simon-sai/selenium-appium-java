@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 import core.driver.DriverManager;
 import io.appium.java_client.android.AndroidDriver;
 
-public abstract class AbstractAndroidApp extends AbstractWebDriverIO {
+public abstract class AbstractAndroid extends AbstractWebDriverIO {
     protected AndroidDriver androidDriver;
 
     protected abstract String appPackage();
@@ -17,7 +17,9 @@ public abstract class AbstractAndroidApp extends AbstractWebDriverIO {
     }
 
     protected String getApkLocation() {
-        throw new IllegalStateException("Sub class not override APK location set");
+        String errorMessage = String.format("Sub class [%s] does not override method getApkLocation yet",
+                this.getClass().getSimpleName());
+        throw new IllegalStateException(errorMessage);
     }
 
     public AndroidDriver getAndroiDriver() {
@@ -52,5 +54,9 @@ public abstract class AbstractAndroidApp extends AbstractWebDriverIO {
     protected By byContentContain(String text) {
         String expression = "//*[contains(@content-desc,'%s')]";
         return By.xpath(String.format(expression, text));
+    }
+
+    protected void SwitchToWebView() {
+
     }
 }

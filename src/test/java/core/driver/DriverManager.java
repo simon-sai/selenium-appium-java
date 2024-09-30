@@ -18,13 +18,9 @@ import io.appium.java_client.remote.options.BaseOptions;
  */
 public class DriverManager {
     protected static WebDriver currentDriver;
-    protected static WebDriver chromeDriver;
+    protected static WebDriver webDriver;
     protected static AndroidDriver androidDriver;
 
-    public static String currentDriverName = "";
-    public static String chromeName = "chrome";
-    public static String androidName = "android";
-    public static String flutterName = "flutter";
     public static String uiAutomatorName = "UiAutomator2";
     public static String flutterIntergrationName = "FlutterIntegration";
 
@@ -36,27 +32,36 @@ public class DriverManager {
         return androidDriver;
     }
 
-    public static WebDriver getChromeDriver() {
-        if (chromeDriver == null) {
-            chromeDriver = new ChromeDriver(OptionsManager.getChromeOptions());
-            currentDriver = chromeDriver;
-        }
+    public static WebDriver getWebDriver() {
+        return webDriver;
+    }
 
-        return chromeDriver;
+    public static WebDriver newWebDriver() {
+        Report.println("-- newWebDriver --");
+        webDriver = new ChromeDriver(OptionsManager.getChromeOptions());
+        currentDriver = webDriver;
+        return webDriver;
+    }
+
+    public static AndroidDriver newFlutterDriver(String appPackage, String appActivity) {
+        return newAndroidDriver(DriverManager.flutterIntergrationName, null, null, appPackage, appActivity);
     }
 
     public static AndroidDriver newFlutterDriver(String app) {
-        return newAndroidDriver(flutterIntergrationName, null, app);
+        return newAndroidDriver(DriverManager.flutterIntergrationName, null, app, null, null);
     }
 
     public static AndroidDriver newAndroidDriver() {
-        return newAndroidDriver(uiAutomatorName, null, null);
+        return newAndroidDriver(DriverManager.uiAutomatorName, null, null, null, null);
     }
 
-    public static AndroidDriver newAndroidDriver(String automationName, String deviceName, String app) {
+    public static AndroidDriver newAndroidDriver(
+            String automationName,
+            String deviceName,
+            String app,
+            String appPackage,
+            String appActivity) {
         Report.println(String.format("-- newAndroidDriver: %s", automationName));
-
-        currentDriverName = androidName;
         URI uri;
         URL url;
 
@@ -68,7 +73,15 @@ public class DriverManager {
         BaseOptions options = new BaseOptions().amend("appium:automationName", automationName);
         options.amend("appium:deviceName", deviceName);
         options.amend("platformName", "Android");
-        if (app != null) {
+
+        if (app == null) {
+            if (appPackage != null) {
+                Report.println(String.format("-- openPackageActivity: %s", appPackage));
+                options.amend("appium:appPackage", appPackage);
+                options.amend("appium:appActivity", appActivity);
+            }
+        } else {
+            Report.println(String.format("-- installApp: %s", app));
             options.amend("appium:app", app);
         }
 
@@ -90,9 +103,10 @@ public class DriverManager {
     }
 
     public static void quitAll() {
-        if (chromeDriver != null) {
-            chromeDriver.quit();
-            chromeDriver = null;
+        Report.println("-- DriverManager quitAll");
+        if (webDriver != null) {
+            webDriver.quit();
+            webDriver = null;
         }
 
         if (androidDriver != null) {
@@ -101,6 +115,5 @@ public class DriverManager {
         }
 
         currentDriver = null;
-        currentDriverName = "";
     }
 }
