@@ -25,8 +25,19 @@ public abstract class AbstractWebDriverIO extends AbstractBase {
         this.elementAssert = new ElementAssert();
     }
 
+    public abstract void initDriver();
+
     public ElementAssert ElementAssert() {
         return this.elementAssert;
+    }
+
+    public final WebDriverWait getWait() {
+        int millisecond = Config.getEnvInt("EXPLICIT_WAIT");
+        return this.getWait(DriverManager.getCurrentDriver(), millisecond);
+    }
+
+    public final WebDriverWait getWait(int millisecond) {
+        return this.getWait(DriverManager.getCurrentDriver(), millisecond);
     }
 
     public final WebDriverWait getWait(WebDriver driver, int millisecond) {
@@ -48,11 +59,11 @@ public abstract class AbstractWebDriverIO extends AbstractBase {
     }
 
     public WebElement findElement(By elementBy) {
-        return this.findElement(this.explicitWait, elementBy);
+        return this.findElement(this.getWait(), elementBy);
     }
 
     public WebElement findElement(By elementBy, int millisecond) {
-        return this.findElement(this.getWait(DriverManager.getCurrentDriver(), millisecond), elementBy);
+        return this.findElement(this.getWait(millisecond), elementBy);
     }
 
     public WebElement findElement(WebDriverWait explicDriverWait, By elementBy) {
@@ -69,7 +80,7 @@ public abstract class AbstractWebDriverIO extends AbstractBase {
 
     public List<WebElement> findElements(By elementBy) {
         try {
-            return this.explicitWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(elementBy));
+            return this.getWait().until(ExpectedConditions.visibilityOfAllElementsLocatedBy(elementBy));
         } catch (Exception e) {
             String errorMessage = String.format("The elements are not exist: %s", elementBy.toString());
             Report.log(errorMessage, Status.FAIL);
@@ -97,7 +108,8 @@ public abstract class AbstractWebDriverIO extends AbstractBase {
     }
 
     public WebElement findElementToClick(By elementBy) {
-        return this.findElementToClick(this.explicitWait, elementBy);
+        sleep(200);
+        return this.findElementToClick(this.getWait(), elementBy);
     }
 
     public WebElement findElementToClick(WebDriverWait explicDriverWait, By elementBy) {

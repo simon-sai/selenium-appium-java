@@ -2,7 +2,7 @@ package core.abstractclass;
 
 import core.driver.DriverManager;
 
-public abstract class AbstractFlutter extends AbstractAndroidApp {
+public abstract class AbstractAndroidFlutter extends AbstractAndroid {
 
     @Override
     public void initDriver() {

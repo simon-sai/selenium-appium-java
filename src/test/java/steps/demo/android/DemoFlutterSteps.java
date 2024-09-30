@@ -2,7 +2,7 @@ package steps.demo.android;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
-import pages.demo.DemoFlutterApp;
+import pages.demo.android.DemoFlutterApp;
 
 public class DemoFlutterSteps {
 

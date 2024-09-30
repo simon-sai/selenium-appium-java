@@ -11,20 +11,20 @@ public abstract class AbstractBase {
         this.equalAssert = new EqualAssert();
     }
 
-    public EqualAssert EqualAssert() {
-        return this.equalAssert;
-    }
-
-    public void sleepInSecond(int seconds) {
-        this.sleep(seconds * 1000);
-    }
-
-    public void sleep(int miliSeconds) {
+    public static void sleep(int miliSeconds) {
         try {
             Thread.sleep(miliSeconds);
         } catch (InterruptedException e) {
             Report.println(e.getMessage());
         }
+    }
+
+    public EqualAssert EqualAssert() {
+        return this.equalAssert;
+    }
+
+    public void sleepInSecond(int seconds) {
+        sleep(seconds * 1000);
     }
 
     public void report(String log) {
