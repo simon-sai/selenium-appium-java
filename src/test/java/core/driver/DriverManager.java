@@ -7,6 +7,9 @@ import java.net.URL;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.safari.SafariDriver;
 
 import core.Report;
 import core.utilities.Config;
@@ -37,8 +40,29 @@ public class DriverManager {
     }
 
     public static WebDriver newWebDriver() {
-        Report.println("-- newWebDriver --");
-        webDriver = new ChromeDriver(OptionsManager.getChromeOptions());
+        String browser = "chrome";
+        try {
+            browser = Config.getEnvString("TEST_BROWSER").trim().toLowerCase();
+        } catch (Exception e) {
+            Report.println("[DriverManager] TEST_BROWSER not configured, defaulting to chrome");
+        }
+        Report.println("-- newWebDriver: " + browser);
+        switch (browser) {
+            case "firefox":
+                webDriver = new FirefoxDriver(OptionsManager.getFirefoxOptions());
+                break;
+            case "ie":
+            case "internetexplorer":
+                webDriver = new InternetExplorerDriver(OptionsManager.getInternetExplorerOptions());
+                break;
+            case "safari":
+                webDriver = new SafariDriver(OptionsManager.getSafariOptions());
+                break;
+            case "chrome":
+            default:
+                webDriver = new ChromeDriver(OptionsManager.getChromeOptions());
+                break;
+        }
         currentDriver = webDriver;
         return webDriver;
     }

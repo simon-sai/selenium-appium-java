@@ -22,7 +22,7 @@ public abstract class AbstractAndroid extends AbstractWebDriverIO {
         throw new IllegalStateException(errorMessage);
     }
 
-    public AndroidDriver getAndroiDriver() {
+    public AndroidDriver getAndroidDriver() {
         if (this.androidDriver == null) {
             this.androidDriver = DriverManager.getAndroidDriver();
         }
@@ -30,11 +30,11 @@ public abstract class AbstractAndroid extends AbstractWebDriverIO {
     }
 
     public void open() {
-        this.getAndroiDriver().activateApp(this.appPackage());
+        this.getAndroidDriver().activateApp(this.appPackage());
     }
 
     public void close() {
-        this.getAndroiDriver().terminateApp(this.appPackage());
+        this.getAndroidDriver().terminateApp(this.appPackage());
     }
 
     public void install() {
@@ -43,7 +43,7 @@ public abstract class AbstractAndroid extends AbstractWebDriverIO {
     }
 
     public void install(String appPath) {
-        this.getAndroiDriver().installApp(appPath);
+        this.getAndroidDriver().installApp(appPath);
     }
 
     protected By byText(String buttonText) {

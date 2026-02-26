@@ -6,7 +6,9 @@ import io.restassured.response.Response;
 
 public abstract class ReqresApi extends AbstractApi {
     protected String domain = "https://reqres.in";
-    protected String token = "";
+
+    // ThreadLocal so the token is shared across all step classes within the same scenario/thread
+    private static final ThreadLocal<String> sharedToken = new ThreadLocal<>();
 
     protected abstract String getUri();
 
@@ -19,40 +21,44 @@ public abstract class ReqresApi extends AbstractApi {
     }
 
     protected String getToken() {
-        return this.token;
+        String token = sharedToken.get();
+        return token != null ? token : "";
     }
 
     protected String setToken(String newToken) {
-        this.token = newToken;
-        return this.token;
+        sharedToken.set(newToken);
+        return newToken;
     }
 
     protected Response postJson(String url, String jsonBody) {
-        AbstractApi.response = RestAssured.given()
+        Response response = RestAssured.given()
                 .body(jsonBody)
                 .header("Content-Type", "application/json")
                 .header("Accept", "application/json")
-                .header("Authorization", "Bearer " + this.token)
+                .header("Authorization", "Bearer " + this.getToken())
                 .post(url);
-        return AbstractApi.response;
+        this.setResponse(response);
+        return response;
     }
 
     protected Response getJson(String url) {
-        AbstractApi.response = RestAssured.given()
+        Response response = RestAssured.given()
                 .header("Content-Type", "application/json")
                 .header("Accept", "application/json")
-                .header("Authorization", "Bearer " + this.token)
+                .header("Authorization", "Bearer " + this.getToken())
                 .get(url);
-        return AbstractApi.response;
+        this.setResponse(response);
+        return response;
     }
 
     protected Response putJson(String url, String jsonBody) {
-        AbstractApi.response = RestAssured.given()
+        Response response = RestAssured.given()
                 .body(jsonBody)
                 .header("Content-Type", "application/json")
                 .header("Accept", "application/json")
-                .header("Authorization", "Bearer " + this.token)
+                .header("Authorization", "Bearer " + this.getToken())
                 .put(url);
-        return AbstractApi.response;
+        this.setResponse(response);
+        return response;
     }
 }
