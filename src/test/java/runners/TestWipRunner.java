@@ -2,7 +2,7 @@ package runners;
 
 import io.cucumber.testng.CucumberOptions;
 
-@CucumberOptions(features = "src/test/java/features", glue = { "steps",
+@CucumberOptions(features = "src/test/resources/features", glue = { "steps",
         "hooks/webdriverio" }, monochrome = true, plugin = {
                 "pretty" }, tags = "@wip", snippets = CucumberOptions.SnippetType.CAMELCASE)
 

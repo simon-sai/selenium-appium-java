@@ -26,7 +26,7 @@ public class EqualAssert extends AbstractAssert {
         String lowerTExtActual = textActual.toLowerCase();
         boolean status = lowerTExtActual.equals(textExpected.toLowerCase());
         if (status) {
-            this.VerifyPass(String.format("actual text `%s` equal to expect text", textActual, textExpected));
+            this.VerifyPass(String.format("actual text `%s` equal to expect text `%s`", textActual, textExpected));
         } else {
             this.VerifyFail(String.format("actual text `%s` NOT equal to expect text `%s`", textActual, textExpected));
         }
@@ -36,10 +36,10 @@ public class EqualAssert extends AbstractAssert {
         boolean status = numberActual == numberExpected;
         if (status) {
             this.VerifyPass(
-                    String.format("actual number `%d` equal to expect number", numberActual, numberExpected));
+                    String.format("actual number `%d` equal to expect number `%d`", numberActual, numberExpected));
         } else {
             this.VerifyFail(
-                    String.format("actual number `%s` NOT equal to expect number `%s`", numberActual, numberExpected));
+                    String.format("actual number `%d` NOT equal to expect number `%d`", numberActual, numberExpected));
         }
     }
 

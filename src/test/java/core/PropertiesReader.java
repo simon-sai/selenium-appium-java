@@ -24,9 +24,20 @@ public class PropertiesReader {
 
         try {
             InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("configs.properties");
+            if (inputStream == null) {
+                throw new IOException("configs.properties not found in classpath");
+            }
             this.properties.load(inputStream);
 
+            // Try env-configs.properties first; fall back to env-configs.properties.default
             InputStream myInputStream = this.getClass().getClassLoader().getResourceAsStream("env-configs.properties");
+            if (myInputStream == null) {
+                System.out.println("[PropertiesReader] env-configs.properties not found, falling back to env-configs.properties.default");
+                myInputStream = this.getClass().getClassLoader().getResourceAsStream("env-configs.properties.default");
+            }
+            if (myInputStream == null) {
+                throw new IOException("Neither env-configs.properties nor env-configs.properties.default found in classpath");
+            }
             this.envProperties.load(myInputStream);
         } catch (IOException e) {
             Report.log(e.getMessage());

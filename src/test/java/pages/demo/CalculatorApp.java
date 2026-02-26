@@ -3,9 +3,9 @@ package pages.demo;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import core.abstractclass.AbstractAndroidApp;
+import core.abstractclass.AbstractAndroid;
 
-public class CalculatorApp extends AbstractAndroidApp {
+public class CalculatorApp extends AbstractAndroid {
 
     protected By resultXPath = By.xpath("//android.widget.EditText[@content-desc=\"Calculator input field\"]");
     protected By minusXpath = By.xpath("//android.widget.Button[@content-desc=\"Minus\"]");

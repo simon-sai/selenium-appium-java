@@ -41,10 +41,9 @@ public abstract class AbstractWebDriverIO extends AbstractBase {
     }
 
     public final WebDriverWait getWait(WebDriver driver, int millisecond) {
-        if (explicitWait == null) {
-            Duration timeOut = Duration.ofMillis(millisecond);
-            explicitWait = new WebDriverWait(driver, timeOut);
-        }
+        // Always create a new WebDriverWait to avoid caching a wait bound to a stale driver
+        Duration timeOut = Duration.ofMillis(millisecond);
+        explicitWait = new WebDriverWait(driver, timeOut);
         return explicitWait;
     }
 

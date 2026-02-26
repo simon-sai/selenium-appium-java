@@ -5,13 +5,8 @@ package core.verify;
 
 public class Verify {
 
-    protected static EqualAssert equalAssert;
-
     public static EqualAssert GetEqualAssert() {
-        if (equalAssert == null) {
-            equalAssert = new EqualAssert();
-        }
-        return equalAssert;
+        return new EqualAssert();
     }
 
     public static void IsTrue(boolean actual) {
